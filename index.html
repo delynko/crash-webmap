@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Jeffco Vehicle Crashes</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
+    <script type="text/javascript" src="jquery-3.1.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"
+    integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw=="
+    crossorigin=""></script>
+    <script type="text/javascript" src="dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="dist/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="crash_style.css">
+    <link rel="shortcut icon" href="images/jeffco.png" />
+</head>
+<body>
+<!--    <img id="red-arrow" class="hidden" src="images/red-arrow.png"/>-->
+    <!-- splash screen -->
+    <div class="container" id="splashscreen">
+        <div class="row">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
+                <h3 id="introTitle" class="center-block text-center"><b>Crashes in Jefferson County</b></h3><br>
+                <p id="initialText" style="text-align: center">It is Jefferson County’s goal to reduce overall crashes in the county using available resources to make road safety improvements in locations where crashes are most frequent and/or damaging. However, the process of identifying, evaluating, and planning safety improvements on public roads is a difficult task.
+                <br><br>
+                Beginning with identifying where vehicular crashes have occurred, analysis goes much further to include in-depth safety assessments focusing on the nature of crashes in problem areas. This analysis is necessary to understand the totality of a problem which includes not only individual crashes, but other factors such as road conditions and characteristics, weather, and driving behavior related to all crashes. The results of the assessments are used to identify how best to mitigate the safety problem.
+                <br><br>
+                While not intended for in-depth analysis, this interactive application was produced to visually display the 55,000+ crash records in Jefferson County between 2011 and 2015. It does not provide the analysis required to make road safety improvement decisions, but simply allows users to explore data from available crash records from a location perspective.  
+                <br><br><br></p>
+                <h3 id="howto" style="text-align: center">How to Use This App:</h3>
+                <p style="text-align: center">Wait for the <img id="layer-button" src="images/layer-button.PNG"> to appear in the upper right corner of the map. Hover over this to toggle different crash types. Once this is loaded, use the <img id="sqImg" src="images/square.png"> tool to create areas of interest. Once an area is selected, charts aggregating the data associated with the crash data within the selected polygon will appear on the right of the screen. Hover over the charts to get more information<br>
+                <br><em>If crash data does not load after about 30 seconds, please try refreshing your screen.</em><br>
+                </p>
+            </div>
+            <div class="col-xs-3"></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div id="enter" class="col-xs-12 center-block text-center"><a href="#" class="enter_link">Click <img src="images/jeffco.png" style="height:100px"> to Continue</a></div>
+        </div>
+    </div>
+    
+    <!-- container for everything on the map screen -->
+    <div class="container-fluid" id="cont" style="height: 100%">
+        <div class="row" style="height: 100%">
+            
+            <!-- column for map div and navbar -->
+            <div class="col-md-5 col-lg-5" style="height: 100%">
+                <div class="container-fluid" id="map-nav" style="height: 100%">
+                    
+                    <div class="row" style="height: 93%">
+                        <div id="map"></div>
+                    </div>
+                    
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="https://jeffco.us"><img src="images/jeffco.png" style="height:25px"></a>
+                            </div>
+                            <ul class="nav navbar-nav navbar-center">
+                                <li id="initial-extent-button" class="hidden"><a>Initial Extent</a></li>
+                                <li id="refresh-button" class="hidden"><a>Refresh</a></li>
+                                <li id="remove-AOI-button" class="hidden"><a>Remove Area of Interest</a></li>
+                                <li id="damage-button" class="hidden"><a>View Damage Data</a></li>
+                                <li id="chart-button" class="hidden"><a>View Crash Charts</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+            
+            <div class="col-md-7 col-lg-7" style="height: 100%">
+                
+                <div id="loader" class="loader hidden"></div>
+                
+                <div class="container hidden" id="intro-block">
+                    <div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-6 center-block text-center">
+                            <img id="jeffco-logo" src="images/JeffersonCounty_Transportation%20and%20Engineering-horizontal.jpg">
+                            <br>
+                            <img id="cdot-logo" src="images/5644d048d63fd.image.png">
+                            
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                    
+
+                </div>
+                
+                <div id="chart-container" class="container-fluid hidden">
+                    <div id="typeTitle"></div>
+                    <div id="timeTitle"></div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div id="yearChart"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div id="monthChart"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div id="dayChart"></div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div id="hourChart"></div>
+                        </div>
+                    </div>
+                    <div id="incidentChartsTitle"></div>
+                    <div class="row">
+                        <div class="col-xs-4"><div id="incidentChart"></div></div>
+                        <div class="col-xs-4"><div id="factorChart"></div></div>
+                        <div class="col-xs-4"><div id="violationChart"></div></div>
+                    </div>
+<!--
+                    <div class="row">
+                        <div class="col-xs-4"><div id="genderChart"></div></div>
+                        <div class="col-xs-4"><div id="percentages"></div></div>
+                        <div class="col-xs-4"><div id="directionChart"></div></div>
+                    </div>
+-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="Data/jeffco_bndry.js"></script>
+<script type="text/javascript" src="Data/cities.js"></script>
+<script type="text/javascript" src="crash.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,179 @@
+html, body {
+    height: 100%;
+    overflow: hidden
+}
+
+#chart-container {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    margin-top: 100px
+}
+
+#splashscreen {
+    z-index: 1000;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height: 100%;
+    background-color:white;
+}
+
+#map {
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    position:relative;
+    padding-top: 10px;
+    margin-top: 5px
+}
+
+.navbar, .navbar-default {
+    margin-top: 7px;
+}
+
+#intro-block {
+    margin-top: 100px
+}
+
+#jeffco-logo, #cdot-logo {
+    width: 75%;
+    margin-top: 150px
+}
+
+.hidden, .butHide {
+    display: none;
+}
+
+#chartdiv {
+	width	: 100%;
+	height	: 30%;
+}	
+
+#incidentChartsTitle, #timeTitle, #typeTitle {
+    font-family: "Arial";
+    color: #666;
+    font-style: bold;
+    font-size: 14
+}
+
+#introTitle {
+    margin-top: 100px;
+    font-family: "Arial";
+    color: #666;
+}
+
+#howto {
+    font-family: "Arial";
+    color: #666;
+    font-size: 19px
+}
+
+#initialText, #enter {
+    width: 100%;
+    font-family: "Arial";
+    color: #666;
+}
+
+li {
+    font-family: "Arial";
+    color: #666;
+}
+
+a {
+    cursor: pointer;
+    font-family: "Arial";
+}
+
+#red-arrow {
+    width: 75px;
+    position: absolute;
+    z-index: 100;
+    margin-left: 65px;
+    margin-top: 85px;
+}
+
+#searchCont {
+    z-index: 100;
+    position: absolute;
+    margin-left: 65px;
+    margin-top: 10px;
+}
+
+#jeffcoPNG {
+    z-index: 100;
+    height: 5px;
+}
+
+#intInput {
+    width: 250px;
+    padding-left: 10px
+}
+
+.marker-cluster-small {
+	background-color: rgba(94, 182, 228, 0.3);
+
+	}
+.marker-cluster-small div {
+	background-color: rgba(94, 182, 228, 1);
+	}
+
+.marker-cluster-medium {
+	background-color: rgba(115, 150, 0, 0.3);
+
+	}
+.marker-cluster-medium div {
+	background-color: rgba(115, 150, 0, 1);
+	}
+
+.marker-cluster-large {
+	background-color: rgba(200, 49, 65,  0.3);
+
+	}
+.marker-cluster-large div {
+	background-color: rgba(200, 49, 65, 1);
+	}
+
+	/* IE 6-8 fallback colors */
+.leaflet-oldie .marker-cluster-small {
+	background-color: rgb(181, 226, 140);
+	}
+.leaflet-oldie .marker-cluster-small div {
+	background-color: rgb(110, 204, 57);
+	}
+
+.leaflet-oldie .marker-cluster-medium {
+	background-color: rgb(241, 211, 87);
+	}
+.leaflet-oldie .marker-cluster-medium div {
+	background-color: rgb(240, 194, 12);
+	}
+
+.leaflet-oldie .marker-cluster-large {
+	background-color: rgb(253, 156, 115);
+	}
+.leaflet-oldie .marker-cluster-large div {
+	background-color: rgb(241, 128, 23);
+}
+
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 20px;
+    border-style: solid;
+    border-color: white;
+	}
+.marker-cluster div {
+	width: 30px;
+	height: 30px;
+	margin-left: 2px;
+	margin-top: 2px;
+    border-width: 3px;
+	text-align: center;
+	border-radius: 20px;
+	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+	}
+.marker-cluster span {
+    color: white;
+	line-height: 30px;
+}
+
