@@ -82,9 +82,6 @@ var map = L.map("map", {
 // AGOL feature layer of crash data
 var crashDataURL = "https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash/FeatureServer/1";
 
-//https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash405c/FeatureServer/0 - mycontenct
-//https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash/FeatureServer/1 - open data
-
 // icons for animal crashes
 var deerIcon = new L.icon({
     iconUrl: "images/animals/deer.png",
@@ -150,8 +147,6 @@ allCrashQuery.where("1 = 1").run(function(error, data){
             
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
                             `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
-            
-//            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
         }
     });
     allCrashLayerData.push(allCrashData);
@@ -491,19 +486,10 @@ function info(type, layer, d, t){
     var incidents = [];
     var factors = [];
     var viol = [];
-    var dirs = [];
-    var ints = [];
-    var condition = [];
-    var lighting = [];
-    var weather = [];
-    var ages = [];
-    var gender = [];
     var years = [];
     var months = [];
     var days = [];
     var hours = [];
-    var totalState = [];
-    var noCOState = [];
     
     if (type === 'rectangle') {
         // add line break between rich and temporal data
