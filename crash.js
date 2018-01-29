@@ -80,7 +80,10 @@ var map = L.map("map", {
 }).setView([39.50, -105.21], 10);
 
 // AGOL feature layer of crash data
-var crashDataURL = "https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash405c/FeatureServer/0";
+var crashDataURL = "https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash/FeatureServer/1";
+
+//https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash405c/FeatureServer/0 - mycontenct
+//https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash/FeatureServer/1 - open data
 
 // icons for animal crashes
 var deerIcon = new L.icon({
@@ -128,22 +131,25 @@ allCrashQuery = L.esri.query({
     url: crashDataURL
 });
 allCrashQuery.fields(["*"])
-allCrashQuery.where("OBJECTID > 0").run(function(error, data){
+allCrashQuery.where("1 = 1").run(function(error, data){
     var allCrashData = data;
     var allCrashLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             layer.setIcon(circIcon);
             var sev;
-            if (layer.feature.properties.severity == "PDO"){
+            if (layer.feature.properties.SEVERITY == "PDO"){
                 sev = "Property Damage Only"
-            } else if (layer.feature.properties.severity == "INJ"){
+            } else if (layer.feature.properties.SEVERITY == "INJ"){
                 sev = "Injury"
-            } else if (layer.feature.properties.severity == "FAT"){
+            } else if (layer.feature.properties.SEVERITY == "FAT"){
                 sev = "Fatality"
             }
-            var date = new Date(layer.feature.properties.date);
+            
+            console.log(feature);
+            
+            var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.acctype + "<br><b>Vehicle 1: </b>" + layer.feature.properties.vehicle_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.vehicle_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
         }
     });
     allCrashLayerData.push(allCrashData);
@@ -158,21 +164,21 @@ var alcoholCrashQuery = L.esri.query({
     url: crashDataURL
 });
 alcoholCrashQuery.fields(["*"]);
-alcoholCrashQuery.where("driver_1 LIKE '%ALCOHOL%'").run(function(error, data){
+alcoholCrashQuery.where("DRIVER_1 LIKE '%ALCOHOL%'").run(function(error, data){
     var alcData = data;
     var alcoholLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             var sev;
-            if (layer.feature.properties.severity == "PDO"){
+            if (layer.feature.properties.SEVERITY == "PDO"){
                 sev = "Property Damage Only"
-            } else if (layer.feature.properties.severity == "INJ"){
+            } else if (layer.feature.properties.SEVERITY == "INJ"){
                 sev = "Injury"
-            } else if (layer.feature.properties.severity == "FAT"){
+            } else if (layer.feature.properties.SEVERITY == "FAT"){
                 sev = "Fatality"
             }
-            var date = new Date(layer.feature.properties.date);
+            var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.acctype + "<br><b>Vehicle 1: </b>" + layer.feature.properties.vehicle_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.vehicle_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
             layer.setIcon(circIcon);
         }
     });
@@ -186,21 +192,21 @@ var fatalityCrashQuery = L.esri.query({
     url: crashDataURL
 });
 fatalityCrashQuery.fields(["*"]);
-fatalityCrashQuery.where("severity = 'FAT'").run(function(error, data){
+fatalityCrashQuery.where("SEVERITY = 'FAT'").run(function(error, data){
     var fatalityData = data;
     var fatalityLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             var sev;
-            if (layer.feature.properties.severity == "PDO"){
+            if (layer.feature.properties.SEVERITY == "PDO"){
                 sev = "Property Damage Only"
-            } else if (layer.feature.properties.severity == "INJ"){
+            } else if (layer.feature.properties.SEVERITY == "INJ"){
                 sev = "Injury"
-            } else if (layer.feature.properties.severity == "FAT"){
+            } else if (layer.feature.properties.SEVERITY == "FAT"){
                 sev = "Fatality"
             }
-            var date = new Date(layer.feature.properties.date);
+            var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.acctype + "<br><b>Vehicle 1: </b>" + layer.feature.properties.vehicle_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.vehicle_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br>");
             layer.setIcon(circIcon);
         }
     });
@@ -215,26 +221,26 @@ var wildanimalCrashQuery = L.esri.query({
     url: crashDataURL
 });
 wildanimalCrashQuery.fields(["*"]);
-wildanimalCrashQuery.where("wan_type IS NOT NULL").run(function(error, data){
+wildanimalCrashQuery.where("WAN_TYPE IS NOT NULL").run(function(error, data){
     var wildanimalData = data;
     var wildanimalLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
-            if (layer.feature.properties.wan_type == 'DEER'){
+            if (layer.feature.properties.WAN_TYPE == 'DEER'){
                 layer.setIcon(deerIcon);
-            } else if (layer.feature.properties.wan_type == 'BEAR'){
+            } else if (layer.feature.properties.WAN_TYPE == 'BEAR'){
                 layer.setIcon(bearIcon);
-            } else if (layer.feature.properties.wan_type == 'ELK'){
+            } else if (layer.feature.properties.WAN_TYPE == 'ELK'){
                 layer.setIcon(elkIcon);
-            } else if (layer.feature.properties.wan_type == 'CATTLE'){
+            } else if (layer.feature.properties.WAN_TYPE == 'CATTLE'){
                 layer.setIcon(cowIcon);
-            } else if (layer.feature.properties.wan_type == 'COYOTE'){
+            } else if (layer.feature.properties.WAN_TYPE == 'COYOTE'){
                 layer.setIcon(coyoteIcon);
-            } else if (layer.feature.properties.wan_type == 'LION'){
+            } else if (layer.feature.properties.WAN_TYPE == 'LION'){
                 layer.setIcon(lionIcon);
             } else {
                 layer.setIcon(circIcon);
             }
-            layer.bindPopup("Animal involved: <b>" + layer.feature.properties.wan_type + "</b>");
+            layer.bindPopup("Animal involved: <b>" + layer.feature.properties.WAN_TYPE + "</b>");
         }
     });
     wildanimalLayerData.push(wildanimalData);
@@ -247,22 +253,22 @@ var bikeCrashQuery = L.esri.query({
     url: crashDataURL
 });
 bikeCrashQuery.fields(["*"]);
-bikeCrashQuery.where("vehicle_1 = 'BICYCLE' OR vehicle_2 = 'BICYCLE' OR vehicle_3 = 'BICYCLE'").run(function(error, data){
+bikeCrashQuery.where("VEHICLE_1 = 'BICYCLE' OR VEHICLE_2 = 'BICYCLE' OR VEHICLE_3 = 'BICYCLE'").run(function(error, data){
     var bikeCrashData = data;
     var bikeCrashLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             var sev;
-            if (layer.feature.properties.severity == "PDO"){
+            if (layer.feature.properties.SEVERITY == "PDO"){
                 sev = "Property Damage Only"
-            } else if (layer.feature.properties.severity == "INJ"){
+            } else if (layer.feature.properties.SEVERITY == "INJ"){
                 sev = "Injury"
-            } else if (layer.feature.properties.severity == "FAT"){
+            } else if (layer.feature.properties.SEVERITY == "FAT"){
                 sev = "Fatality"
             }
             
-            var date = new Date(layer.feature.properties.date);
+            var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.acctype + "<br><b>Vehicle 1: </b>" + layer.feature.properties.vehicle_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.vehicle_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
             layer.setIcon(bikeIcon);
         }
     });
@@ -276,21 +282,21 @@ var pedQuery = L.esri.query({
     url: crashDataURL
 });
 pedQuery.fields(["*"]);
-pedQuery.where("acctype LIKE '%PEDESTRIAN%'").run(function(error, data){
+pedQuery.where("ACCTYPE LIKE '%PEDESTRIAN%'").run(function(error, data){
     var pedData = data;
     var pedLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             var sev;
-            if (layer.feature.properties.severity == "PDO"){
+            if (layer.feature.properties.SEVERITY == "PDO"){
                 sev = "Property Damage Only"
-            } else if (layer.feature.properties.severity == "INJ"){
+            } else if (layer.feature.properties.SEVERITY == "INJ"){
                 sev = "Injury"
-            } else if (layer.feature.properties.severity == "FAT"){
+            } else if (layer.feature.properties.SEVERITY == "FAT"){
                 sev = "Fatality"
             }
-            var date = new Date(layer.feature.properties.date);
+            var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.acctype + "<br><b>Vehicle 1: </b>" + layer.feature.properties.vehicle_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.vehicle_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
             layer.setIcon(pedIcon);
         }
     });
@@ -309,7 +315,7 @@ setTimeout(function(){
     wildCluster.addLayer(wildanimalLayerData[1]);
     fatalityCluster.addLayer(fatalityCrashLayerData[1]);
     
-}, 5000);
+}, 6000);
 
 // create crash layer object for leaflet layer control
 var crashLayers;
@@ -324,12 +330,12 @@ setTimeout(function(){
         "Pedestrian Related Crashes": pedCluster,
         "Fatal Crashes": fatalityCluster
     };
-}, 6000)
+}, 6050)
 
 // timeout function to add layer control with all layers and data to map
 setTimeout(function(){
     L.control.layers(crashLayers).addTo(map);
-}, 6005);
+}, 6055);
 
 // create/add draw control for drawing rectangles/polygons
 var drawControl = new L.Control.Draw({
@@ -537,60 +543,29 @@ function info(type, layer, d, t){
                     // to count
                     count.push(feature);
                 }
-                var stateAbreves = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", 
-                    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
-                    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
-                    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
-                    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
                 
                 if (bounds.contains([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])) {
-                    if (feature.properties.age_1 != 0 && feature.properties.age_1 != undefined){
-                        ages.push(feature.properties.age_1);
+                    
+                    if (feature.properties.ACCTYPE != undefined){
+                        incidents.push(feature.properties.ACCTYPE);
                     }
-                    if (feature.properties.sex_1 != undefined){
-                        gender.push(feature.properties.sex_1);
+                    if (feature.properties.VIOLCODE_1 != undefined){
+                        viol.push(feature.properties.VIOLCODE_1);
                     }
-                    if (feature.properties.state_1 != undefined && stateAbreves.includes(feature.properties.state_1)){
-                        totalState.push(feature.properties.state_1);
+                    if (feature.properties.FACTOR_1 != "NONE APPARENT" && feature.properties.FACTOR_1 != "UNKNOWN" && feature.properties.FACTOR_1 != undefined){
+                        factors.push(feature.properties.FACTOR_1);
                     }
-                    if (stateAbreves.includes(feature.properties.state_1) && feature.properties.state_1 != "CO") {
-                        noCOState.push(feature.properties.state_1);
+                    if (feature.properties.YEAR != undefined){
+                        years.push(feature.properties.YEAR);
                     }
-                    if (feature.properties.acctype != undefined){
-                        incidents.push(feature.properties.acctype);
+                    if (feature.properties.MONTH != undefined){
+                        months.push(feature.properties.MONTH);
                     }
-                    if (feature.properties.dir_1 != undefined){
-                        dirs.push(feature.properties.dir_1);
+                    if (feature.properties.DAYOFWEEK1 != undefined){
+                        days.push(feature.properties.DAYOFWEEK1 );
                     }
-                    if (feature.properties.road_desc != undefined){
-                        ints.push(feature.properties.road_desc);
-                    }
-                    if (feature.properties.condition != undefined){
-                        condition.push(feature.properties.condition);
-                    }
-                    if (feature.properties.lighting != undefined){
-                        lighting.push(feature.properties.lighting);
-                    }
-                    if (feature.properties.weather != undefined){
-                        weather.push(feature.properties.weather);
-                    }
-                    if (feature.properties.violcode_1 != undefined){
-                        viol.push(feature.properties.violcode_1);
-                    }
-                    if (feature.properties.factor_1 != "NONE APPARENT" && feature.properties.factor_1 != "UNKNOWN" && feature.properties.factor_1 != undefined){
-                        factors.push(feature.properties.factor_1);
-                    }
-                    if (feature.properties.Year != undefined){
-                        years.push(feature.properties.Year);
-                    }
-                    if (feature.properties.Month != undefined){
-                        months.push(feature.properties.Month);
-                    }
-                    if (feature.properties.DayofWeek1 != undefined){
-                        days.push(feature.properties.DayofWeek1);
-                    }
-                    if (feature.properties.Hour != undefined){
-                        hours.push(feature.properties.Hour);
+                    if (feature.properties.HOUR != undefined){
+                        hours.push(feature.properties.HOUR);
                     }
                 }
             }
@@ -601,14 +576,6 @@ function info(type, layer, d, t){
     var incidentCount = incidents.length;
     var factorCount = factors.length;
     var violationCount = viol.length;
-    var ageCount = ages.length;
-    var genderCount = gender.length;
-    var directionCount = dirs.length;
-    var lightingCount = lighting.length;
-    var weatherCount = weather.length;
-    var conditionCount = condition.length;
-    var stateAllCount = totalState.length;
-    var stateNOCOCount = noCOState.length;
     
     // get data points for temporal charts
     var counts = count.length;
@@ -627,31 +594,6 @@ function info(type, layer, d, t){
     var violationCounts = {};
     viol.forEach (function(x) 
         { violationCounts[x] = (violationCounts[x] || 0)+1;
-    });
-    
-    var directionCounts = {};
-    dirs.forEach (function(x) 
-        { directionCounts[x] = (directionCounts[x] || 0)+1;
-    });
-    
-    var conditionCounts = {};
-    condition.forEach (function(x) 
-        { conditionCounts[x] = (conditionCounts[x] || 0)+1;
-    });
-    
-    var weatherCounts = {};
-    weather.forEach (function(x) 
-        { weatherCounts[x] = (weatherCounts[x] || 0)+1;
-    });
-
-    var lightingCounts = {};
-    lighting.forEach (function(x) 
-        { lightingCounts[x] = (lightingCounts[x] || 0)+1;
-    });
-    
-    var genderCounts = {};
-    gender.forEach (function(x) 
-        { genderCounts[x] = (genderCounts[x] || 0)+1;
     });
     
     var yearCounts = {};
@@ -673,17 +615,7 @@ function info(type, layer, d, t){
     hours.forEach (function(x) 
         { hourCounts[x] = (hourCounts[x] || 0)+1;
     });
-    
-    var stateCounts = {};
-    totalState.forEach (function(x) 
-        { stateCounts[x] = (stateCounts[x] || 0)+1;
-    });
-    
-    var noCOStateCounts = {};
-    noCOState.forEach (function(x) 
-        { noCOStateCounts[x] = (noCOStateCounts[x] || 0)+1;
-    });
-    
+
     // timeout for collection of data from within area of interest
     setTimeout(function(){
         $("#incidentChartsTitle").html("<br><b>Crash Specific Data</b>");
@@ -691,60 +623,19 @@ function info(type, layer, d, t){
         $("#typeTitle").html("<b>" + t + " Crashes (" + counts + " total crashes: 2011 to 2015)</b><br><br>");
         $("#timeTitle").html("<b>Temporal Breakdown</b>");
         
-        // get variables based on respective functions
-        var conditions = getConditionPercentages(conditionCounts, incidentCount);
-        var weather = getWeatherPercentages(weatherCounts, incidentCount, "weather conditions");
-        var lighting = getLightingPercentages(lightingCounts, incidentCount);
-//        var averageAge = avgAge(ages);
-//        var stateStuff = stateData(noCOStateCounts, stateAllCount, stateNOCOCount);
-        
         // call functions to create charts...timeout ensures all charts are populated with data prior to display
         setTimeout(function(){
             incidentChart(incidentCounts, incidentCount);
             factorChart(factorCounts, factorCount);
             violationChart(violationCounts, violationCount);
-//            directionChart(directionCounts, directionCount);
-//            genderChart(genderCounts, genderCount);
             yearChart(yearCounts);
             monthChart(monthCounts);
             dayChart(dayCounts);
             hourChart(hourCounts);
-//            percentageWords(averageAge, ageCount, lighting[0], lighting[1], lightingCount, weather[0], weather[1], weatherCount, conditions[0], conditions[1], conditionCount, stateStuff[0], stateAllCount, stateStuff[1][0], stateStuff[1][1]);
-//            $("#contains-all").removeClass("hidden");
         }, 2500)
         
     }, 4000);
     
-}
-
-// function to populate the 'percentages' div
-function percentageWords(age, ageTotal, lightingPer, lighting, lightingTotal, weatherPer, weather, weatherTotal, condPer, cond, condTotal, oosPercent, stateTotal, oosOOSPercent, offState){
-    $("#percentages").append("The <em><b>average age</b></em> of driver at fault for <b><em>" + ageTotal + " crashes</b></em> is <b><em>" + age + " years.</b></em><br><br> <em><b>" + lightingPer + "%</b></em> of <b><em>" + lightingTotal + " crashes</b></em> occur during <em><b>" + lighting + "</b></em> hours. <em><b><br><br>" + weatherPer + "%</b></em> of <em><b>" + weatherTotal + " crashes</b></em> occur when the weather was <em><b>" + weather + "</b></em>.<br><br> <em><b>" + condPer + "%</b></em> of <em><b>" + condTotal + " crashes</b></em> occur when conditions were <em><b>" + cond + "</b></em>.<br><br><em><b>" + oosPercent + "%</b></em> of <em><b>" + stateTotal + "</b></em> crashes were caused by someone from out-of-state. <em><b>" + oosOOSPercent + "%</b></em> of these were caused by someone from <em><b>" + offState + "</b></em>");
-    $("#percentages").css({
-        "width": "100%",
-        "font-family": "Arial",
-        "color": "#666",
-        "font-style": "bold",
-        "font-size": 13,
-        "margin-top": "15px",
-        "padding-right": "25px"
-    }
-    );
-}
-
-// using the counts from the age data obtained from info() function, finds average age of violators in area of interest
-function avgAge(a){
-    var sum = 0;
-    
-    for( var i = 0; i < a.length; i++ ){
-        sum += parseInt( a[i], 10 );
-    }   
-
-    var avg = sum/a.length;
-    
-    var avgAge = avg.toFixed(1).toString();
-    
-    return avgAge;
 }
 
 // create chart based on incidents with data obtained from info() function
@@ -1069,199 +960,4 @@ function hourChart(data){
                 }
             }
     });
-}
-
-function directionChart(data, total){
-    $("#directionChart").append('<canvas id="dChart" class="newChart" width="100%" height="55px"></canvas>');
-    var ne = {};
-    var ea = {};
-    var se = {};
-    var so = {};
-    var sw = {};
-    var we = {};
-    var nw = {};
-    var no = {};
-    
-    for (var f = 0; f < Object.keys(data).length; f++){
-        if (Object.keys(data)[f] == "NE"){
-            ne["direction"] = Object.keys(data)[f];
-            ne["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "E"){
-            ea["direction"] = Object.keys(data)[f];
-            ea["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "SE"){
-            se["direction"] = Object.keys(data)[f];
-            se["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "S"){
-            so["direction"] = Object.keys(data)[f];
-            so["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "SW"){
-            sw["direction"] = Object.keys(data)[f];
-            sw["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "W"){
-            we["direction"] = Object.keys(data)[f];
-            we["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "NW"){
-            nw["direction"] = Object.keys(data)[f];
-            nw["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        };
-        if (Object.keys(data)[f] == "N"){
-            no["direction"] = Object.keys(data)[f];
-            no["value"] = ((Object.values(data)[f]) / total * 100).toFixed(0);
-        }
-    };
-    
-    var directionData = {
-        labels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-        datasets: [{
-            data: [no["value"], ne["value"], ea["value"], se["value"], so["value"], sw["value"], we["value"], nw["value"]],
-            backgroundColor: "#ff8822",
-            pointHoverBackgroundColor: "#3d1348"
-        }],
-    };
-    
-    var radarChart = new Chart(document.getElementById('dChart'), {
-        type: 'radar',
-        data: directionData,
-        options: {
-            scale: {
-                ticks: {
-                    display: false
-                }
-            },
-            legend: {
-                display: false,
-            },
-            title: {
-                display: true,
-                fontSize: 12,
-                text: "Direction of Travel (% " + total + " crashes)" 
-            }
-        }
-    });
-}
-
-function genderChart(data, total){
-    $("#genderChart").append('<canvas id="gChart" class="newChart" width="100%" height="55px"></canvas>');
-
-    var mPer = (data.M / total * 100).toFixed(0);
-    var fPer = (data.F / total * 100).toFixed(0);
-    
-    var d = {
-        datasets: [
-            {
-            data: [mPer, fPer],
-            backgroundColor: ["#335D7E", "#f0a7c2"],
-            }
-        ],
-        labels: ['Male', 'Female']
-    };
-    
-    var gChart = new Chart(document.getElementById('gChart'), {
-        type: 'pie',
-        data: d,
-        options: {
-            title: {
-                display: true,
-                fontSize: 12,
-                text: "Gender Breakdown (% of " + total + ") crashes"
-            }
-        }
-    });
-}
-
-// using data obtained from info() function, get percentages
-function getConditionPercentages(counts, total){
-    var allNumbers = [];
-    for (var i = 0; i < Object.keys(counts).length; i++){
-        allNumbers.push(Object.values(counts)[i]);
-    };
-    var maximum = Math.max(...allNumbers);
-    
-    var conditions = [];
-    
-    for (var t = 0; t < Object.values(counts).length; t++){
-        if (Object.values(counts)[t] == maximum) {
-            conditions.push((Object.values(counts)[t] / total * 100).toFixed(1).toString());
-            conditions.push(Object.keys(counts)[t].toLowerCase());
-        }
-    };
-    
-    return conditions;
-}
-
-function getLightingPercentages(counts, total){
-    var allNumbers = [];
-    for (var i = 0; i < Object.keys(counts).length; i++){
-        allNumbers.push(Object.values(counts)[i]);
-    };
-    
-    var maximum = Math.max(...allNumbers);
-
-    var lighting = [];
-    
-    for (var t = 0; t < Object.values(counts).length; t++){
-        if (Object.values(counts)[t] == maximum) {
-            lighting.push((Object.values(counts)[t] / total * 100).toFixed(1).toString());
-            lighting.push(Object.keys(counts)[t].toLowerCase());
-        }
-    };
-
-    return lighting;
-
-}
-
-function getWeatherPercentages(counts, total){
-    var allNumbers = [];
-    for (var i = 0; i < Object.keys(counts).length; i++){
-        allNumbers.push(Object.values(counts)[i]);
-    };
-
-    var maximum = Math.max(...allNumbers);
-    
-    var weather = [];
-    
-    for (var t = 0; t < Object.values(counts).length; t++){
-        if (Object.values(counts)[t] == maximum) {
-            if (Object.keys(counts)[t] == "NONE"){
-                weather.push((Object.values(counts)[t] / total * 100).toFixed(1).toString());
-                weather.push("not adverse");
-            } else {
-                weather.push((Object.values(counts)[t] / total * 100).toFixed(1).toString());
-                weather.push(Object.keys(counts)[t].toLowerCase());
-            }
-        }
-    };
-    
-    return weather;
-}
-
-function stateData(noCO, total, totalNOCO){
-    var allNumbers = [];
-    for (var i = 0; i < Object.keys(noCO).length; i++){
-        allNumbers.push(Object.values(noCO)[i]);
-    };
-
-    var maximum = Math.max(...allNumbers);
-    
-    var state = [];
-    
-    for (var t = 0; t < Object.values(noCO).length; t++){
-        if (Object.values(noCO)[t] == maximum) {
-            if (Object.keys(noCO)[t] != undefined){
-                state.push((Object.values(noCO)[t] / totalNOCO * 100).toFixed(1).toString());
-                state.push(Object.keys(noCO)[t]);
-            } 
-        }
-    };
-    
-    var percentOOS = ((totalNOCO / total * 100).toFixed(1));
-    
-    return [percentOOS, state];
 }
