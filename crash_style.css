@@ -63,13 +63,13 @@ html, body {
     color: #666;
 }
 
-#howto {
+#howto, #exploreData {
     font-family: "Arial";
     color: #666;
     font-size: 19px
 }
 
-#initialText, #enter {
+#enter, .initialText {
     width: 100%;
     font-family: "Arial";
     color: #666;
