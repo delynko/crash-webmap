@@ -170,14 +170,7 @@ alcoholCrashQuery.where("DRIVER_1 LIKE '%ALCOHOL%'").run(function(error, data){
     var alcData = data;
     var alcoholLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
-            var sev;
-            if (layer.feature.properties.SEVERITY == "PDO"){
-                sev = "Property Damage Only"
-            } else if (layer.feature.properties.SEVERITY == "INJ"){
-                sev = "Injury"
-            } else if (layer.feature.properties.SEVERITY == "FAT"){
-                sev = "Fatality"
-            }
+            var sev = popupSeverity(layer.feature.properties.SEVERITY);
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
@@ -199,14 +192,7 @@ fatalityCrashQuery.where("SEVERITY = 'FAT'").run(function(error, data){
     var fatalityData = data;
     var fatalityLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
-            var sev;
-            if (layer.feature.properties.SEVERITY == "PDO"){
-                sev = "Property Damage Only"
-            } else if (layer.feature.properties.SEVERITY == "INJ"){
-                sev = "Injury"
-            } else if (layer.feature.properties.SEVERITY == "FAT"){
-                sev = "Fatality"
-            }
+            var sev = popupSeverity(layer.feature.properties.SEVERITY);
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
@@ -261,15 +247,7 @@ bikeCrashQuery.where("VEHICLE_1 = 'BICYCLE' OR VEHICLE_2 = 'BICYCLE' OR VEHICLE_
     var bikeCrashData = data;
     var bikeCrashLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
-            var sev;
-            if (layer.feature.properties.SEVERITY == "PDO"){
-                sev = "Property Damage Only"
-            } else if (layer.feature.properties.SEVERITY == "INJ"){
-                sev = "Injury"
-            } else if (layer.feature.properties.SEVERITY == "FAT"){
-                sev = "Fatality"
-            }
-            
+            var sev = popupSeverity(layer.feature.properties.SEVERITY);
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
@@ -291,14 +269,7 @@ pedQuery.where("ACCTYPE LIKE '%PEDESTRIAN%'").run(function(error, data){
     var pedData = data;
     var pedLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
-            var sev;
-            if (layer.feature.properties.SEVERITY == "PDO"){
-                sev = "Property Damage Only"
-            } else if (layer.feature.properties.SEVERITY == "INJ"){
-                sev = "Injury"
-            } else if (layer.feature.properties.SEVERITY == "FAT"){
-                sev = "Fatality"
-            }
+            var sev = popupSeverity(layer.feature.properties.SEVERITY);
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
@@ -966,4 +937,16 @@ function hourChart(data){
                 }
             }
     });
+}
+
+function popupSeverity(severity){
+    var sev;
+    if (severity == "PDO"){
+        sev = "Property Damage Only"
+    } else if (severity == "INJ"){
+        sev = "Injury"
+    } else if (severity == "FAT"){
+        sev = "Fatality"
+    }
+    return sev;
 }
