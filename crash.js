@@ -145,11 +145,13 @@ allCrashQuery.where("1 = 1").run(function(error, data){
                 sev = "Fatality"
             }
             
-            console.log(feature);
-            
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            
+            layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
+                            `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
+            
+//            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
         }
     });
     allCrashLayerData.push(allCrashData);
@@ -178,7 +180,8 @@ alcoholCrashQuery.where("DRIVER_1 LIKE '%ALCOHOL%'").run(function(error, data){
             }
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
+                            `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
             layer.setIcon(circIcon);
         }
     });
@@ -206,7 +209,8 @@ fatalityCrashQuery.where("SEVERITY = 'FAT'").run(function(error, data){
             }
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br>");
+            layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
+                            `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br>`);
             layer.setIcon(circIcon);
         }
     });
@@ -268,7 +272,8 @@ bikeCrashQuery.where("VEHICLE_1 = 'BICYCLE' OR VEHICLE_2 = 'BICYCLE' OR VEHICLE_
             
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
+                            `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
             layer.setIcon(bikeIcon);
         }
     });
@@ -296,7 +301,8 @@ pedQuery.where("ACCTYPE LIKE '%PEDESTRIAN%'").run(function(error, data){
             }
             var date = new Date(layer.feature.properties.DATE_);
             var ddd = date.toString().split(" ");
-            layer.bindPopup("<b>Date: </b>" + ddd[0] + ", " + ddd[1] + " " + ddd[2] + ", " + ddd[3] + "<br><b>Incident Type : </b>" + layer.feature.properties.ACCTYPE + "<br><b>Vehicle 1: </b>" + layer.feature.properties.VEHICLE_1 + "<br><b>Vehicle 2: </b>" + layer.feature.properties.VEHICLE_2 + "<br><b>Severity: </b>" + sev + "<br>");
+            layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
+                            `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
             layer.setIcon(pedIcon);
         }
     });
