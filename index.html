@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js"></script>
     <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
-    <script type="text/javascript" src="jquery-3.1.2.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"
     integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw=="
     crossorigin=""></script>
@@ -22,8 +21,6 @@
     <link rel="shortcut icon" href="images/jeffco.png" />
 </head>
 <body>
-<!--    <img id="red-arrow" class="hidden" src="images/red-arrow.png"/>-->
-    <!-- splash screen -->
     <div class="container" id="splashscreen">
         <div class="row">
             <div class="col-xs-3"></div>
@@ -76,7 +73,6 @@
                             </ul>
                         </div>
                     </nav>
-                    
                 </div>
             </div>
             
@@ -91,12 +87,9 @@
                             <img id="jeffco-logo" src="images/JeffersonCounty_Transportation%20and%20Engineering-horizontal.jpg">
                             <br>
                             <img id="cdot-logo" src="images/5644d048d63fd.image.png">
-                            
                         </div>
                         <div class="col-xs-4"></div>
                     </div>
-                    
-
                 </div>
                 
                 <div id="chart-container" class="container-fluid hidden">
@@ -124,13 +117,6 @@
                         <div class="col-xs-4"><div id="factorChart"></div></div>
                         <div class="col-xs-4"><div id="violationChart"></div></div>
                     </div>
-<!--
-                    <div class="row">
-                        <div class="col-xs-4"><div id="genderChart"></div></div>
-                        <div class="col-xs-4"><div id="percentages"></div></div>
-                        <div class="col-xs-4"><div id="directionChart"></div></div>
-                    </div>
--->
                 </div>
             </div>
         </div>
