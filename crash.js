@@ -82,42 +82,10 @@ var map = L.map("map", {
 // AGOL feature layer of crash data
 var crashDataURL = "https://services3.arcgis.com/9ntQlfNHEhmpX4cl/arcgis/rest/services/Crash/FeatureServer/1";
 
-// icons for animal crashes
-var deerIcon = new L.icon({
-    iconUrl: "images/animals/deer.png",
-    iconSize: [20, 35]
-});
-var bearIcon = new L.icon({
-    iconUrl: "images/animals/bear.png",
-    iconSize: [20, 15]
-});
-var elkIcon = new L.icon({
-    iconUrl: "images/animals/elk.png",
-    iconSize: [20, 35]
-});
-var cowIcon = new L.icon({
-    iconUrl: "images/animals/cow.png",
-    iconSize: [20, 15]
-});
-var coyoteIcon = new L.icon({
-    iconUrl: "images/animals/coyote.png",
-    iconSize: [20, 25]
-});
-var pedIcon = new L.icon({
-    iconUrl: "images/animals/ped.png",
-    iconSize: [11, 20]
-});
-var lionIcon = new L.icon({
-    iconUrl: "images/animals/lion.png",
-    iconSize: [25, 10]
-});
+// generic circle icon for points on map
 var circIcon = new L.icon({
     iconUrl: "images/animals/Black_Circle.png",
     iconSize: [15, 15]
-});
-var bikeIcon = new L.icon({
-    iconUrl: "images/animals/bicycle.png",
-    iconSize: [25, 17]
 });
 
 // create cluster container for All Crashes
@@ -211,17 +179,17 @@ wildanimalCrashQuery.where("WAN_TYPE IS NOT NULL").run(function(error, data){
     var wildanimalLayer = L.geoJson(data, {
         onEachFeature: function(feature, layer){
             if (layer.feature.properties.WAN_TYPE == 'DEER'){
-                layer.setIcon(deerIcon);
+                layer.setIcon(new L.icon({iconUrl: "images/animals/deer.png", iconSize: [20, 35]}));
             } else if (layer.feature.properties.WAN_TYPE == 'BEAR'){
-                layer.setIcon(bearIcon);
+                layer.setIcon(new L.icon({iconUrl: "images/animals/bear.png", iconSize: [20, 15]}));
             } else if (layer.feature.properties.WAN_TYPE == 'ELK'){
-                layer.setIcon(elkIcon);
+                layer.setIcon(new L.icon({iconUrl: "images/animals/elk.png", iconSize: [20, 35]}));
             } else if (layer.feature.properties.WAN_TYPE == 'CATTLE'){
-                layer.setIcon(cowIcon);
+                layer.setIcon(new L.icon({iconUrl: "images/animals/cow.png", iconSize: [20, 15]}));
             } else if (layer.feature.properties.WAN_TYPE == 'COYOTE'){
-                layer.setIcon(coyoteIcon);
+                layer.setIcon(coyoteIcon = new L.icon({iconUrl: "images/animals/coyote.png", iconSize: [20, 25]}));
             } else if (layer.feature.properties.WAN_TYPE == 'LION'){
-                layer.setIcon(lionIcon);
+                layer.setIcon(lionIcon = new L.icon({iconUrl: "images/animals/lion.png", iconSize: [25, 10]}));
             } else {
                 layer.setIcon(circIcon);
             }
@@ -247,7 +215,7 @@ bikeCrashQuery.where("VEHICLE_1 = 'BICYCLE' OR VEHICLE_2 = 'BICYCLE' OR VEHICLE_
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
                             `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
-            layer.setIcon(bikeIcon);
+            layer.setIcon(bikeIcon = new L.icon({iconUrl: "images/animals/bicycle.png", iconSize: [25, 17]}));
         }
     });
     bikeCrashLayerData.push(bikeCrashData);
@@ -269,7 +237,7 @@ pedQuery.where("ACCTYPE LIKE '%PEDESTRIAN%'").run(function(error, data){
             var ddd = date.toString().split(" ");
             layer.bindPopup(`<b>Date: </b> ${ddd[0]}, ${ddd[1]} ${ddd[2]}, ${ddd[3]}<br><b>Incident Type : </b>${layer.feature.properties.ACCTYPE}<br><b>Vehicle 1: </b>${layer.feature.properties.VEHICLE_1}` +
                             `<br><b>Vehicle 2: </b>${layer.feature.properties.VEHICLE_2}<br><b>Severity: </b>${sev}<br>`);
-            layer.setIcon(pedIcon);
+            layer.setIcon(pedIcon = new L.icon({iconUrl: "images/animals/ped.png", iconSize: [11, 20]}));
         }
     });
     pedLayerData.push(pedData);
