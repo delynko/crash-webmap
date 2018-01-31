@@ -551,7 +551,7 @@ function info(type, layer, d, t){
     setTimeout(function(){
         $("#incidentChartsTitle").html("<br><b>Crash Specific Data</b>");
         // create title for temporal data charts
-        $("#typeTitle").html("<b>" + t + " Crashes (" + counts + " total crashes: 2011 to 2015)</b><br><br>");
+        $("#typeTitle").html(`<b>${t} Crashes (${counts} total crashes: 2011 to 2015)</b><br><br>`);
         $("#timeTitle").html("<b>Temporal Breakdown</b>");
         
         // call functions to create charts...timeout ensures all charts are populated with data prior to display
@@ -570,7 +570,7 @@ function info(type, layer, d, t){
 }
 
 // create chart based on incidents with data obtained from info() function
-function incidentChart(data, total){
+function incidentChart(data, total) {
     // create canvase in which chart can be inserted (required by Chart.js)
     $("#incidentChart").append('<canvas id="iChart" class="newChart" width="100%" height="65px"></canvas>');
     
@@ -625,7 +625,7 @@ function incidentChart(data, total){
                 title: {
                     display: true,
                     fontSize: 12,
-                    text: "Three Most Common Incidents (% of " + total + " crashes)"
+                    text: `Three Most Common Incidents (% of ${total} crashes)`
                 },
                 scales: {
                     xAxes: [{
@@ -689,7 +689,7 @@ function factorChart(data, total){
                 title: {
                     display: true,
                     fontSize: 12,
-                    text: "Three Most Common Factors (% of " + total +" crashes)"
+                    text: `Three Most Common Factors (% of ${total} crashes)`
                 },
                 scales: {
                     xAxes: [{
@@ -750,7 +750,7 @@ function violationChart(data, total){
                 title: {
                     display: true,
                     fontSize: 12,
-                    text: "Three Most Common Violations (% of " + total + " crashes)"
+                    text: `Three Most Common Violations (% of ${total} crashes)`
                 },
                 scales: {
                     xAxes: [{
