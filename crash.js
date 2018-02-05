@@ -549,10 +549,10 @@ function info(type, layer, d, t){
 
     // timeout for collection of data from within area of interest
     setTimeout(function(){
-        $("#incidentChartsTitle").html("<br><b>Crash Specific Data</b>");
+        $("#incidentChartsTitle").html("<br><h4><b>Crash Specific Data</b></h4>");
         // create title for temporal data charts
-        $("#typeTitle").html(`<b>${t} Crashes (${counts} total crashes: 2011 to 2015)</b><br><br>`);
-        $("#timeTitle").html("<b>Temporal Breakdown</b>");
+        $("#typeTitle").html(`<h3><b>${t} Crashes (${counts} total crashes: 2011 to 2015)</b></h3><br><br>`);
+        $("#timeTitle").html("<h4><b>Temporal Breakdown</b></h4>");
         
         // call functions to create charts...timeout ensures all charts are populated with data prior to display
         setTimeout(function(){
