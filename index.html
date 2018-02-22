@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset=utf-8 />
-    <title>Jeffco Vehicle Crashes</title>
+    <title>Crashes in Jefferson County</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
@@ -23,17 +23,18 @@
         <div class="row">
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
-                <h3 id="introTitle" class="center-block text-center"><b>Crashes in Jefferson County</b></h3><br>
-                <p id="initialText" class="initialText" style="text-align: center">It is Jefferson County’s goal to reduce overall crashes in the county using available resources to make road safety improvements in locations where crashes are most frequent and/or damaging. However, the process of identifying, evaluating, and planning safety improvements on public roads is a difficult task.
+                <h1 id="introTitle" class="center-block text-center"><b>Crashes in Jefferson County</b></h1><br>
+                <p id="initialText" class="initialText">It is Jefferson County’s goal to reduce overall crashes in the county using available resources to make road safety improvements in locations where crashes are most frequent and/or damaging. However, the process of identifying, evaluating, and planning safety improvements on public roads is a difficult task.
                 <br><br>
                 Beginning with identifying where vehicular crashes have occurred, analysis goes much further to include in-depth safety assessments focusing on the nature of crashes in problem areas. This analysis is necessary to understand the totality of a problem which includes not only individual crashes, but other factors such as road conditions and characteristics, weather, and driving behavior related to all crashes. The results of the assessments are used to identify how best to mitigate the safety problem.
                 <br><br>
                 While not intended for in-depth analysis, this interactive application was produced to visually display the 55,000+ crash records in Jefferson County between 2011 and 2015. It does not provide the analysis required to make road safety improvement decisions, but simply allows users to explore data from available crash records from a location perspective.  
                 <br></p>
-                <h3 id="howto" style="text-align: center">How to Use This App</h3>
-                <p class="initialText" style="text-align: center">Wait for the <img id="layer-button" src="images/layer-button.PNG"> to appear in the upper right corner of the map. Hover over this to toggle different crash types. Once this is loaded, use the <img id="sqImg" src="images/square.png"> tool (upper left) to create areas of interest. Once an area is selected, charts aggregating the data associated with the crash data within the selected polygon will appear on the right of the screen. Hover over the charts to get more information.<br>
-                <h3 id="exploreData" style="text-align: center">Explore the Data</h3>
-                <p class="initialText" style="text-align: center">The data used to create this app are freely avialable for download via the <a href="https://data-jeffersoncounty.opendata.arcgis.com/">Jefferson County Open Data Portal</a>. From here, you can download the data in a number of formats, use the data via an API, or simply view the data on a map. All GIS data made available by Jefferson County are available from this site.</p>
+                <h2 id="howto" style="text-align: center">How to Use This App</h2>
+                <p class="initialText">Wait for the <img id="layer-button" src="images/layer-button.PNG" alt="Layer Button" title="Layer Button"> to appear in the upper right corner of the map. Hover over this to toggle different crash types. Once this is loaded, use the <img id="sqImg" src="images/square.png" alt="Draw Polygon Tool" title="Draw Polygon Tool"> tool (upper left) to create areas of interest. Once an area is selected, charts aggregating the data associated with the crash data within the selected polygon will appear on the right of the screen. Hover over the charts to get more information.</p>
+                <p class="initialText" style="text-align: center"><em>Application will not work if using Internet Explorer and is not compatible with mobile devices.</em><br></p>
+                <h2 id="exploreData" style="text-align: center">Explore the Data</h2>
+                <p class="initialText">The data used to create this app are freely available for download via the <a href="https://data-jeffersoncounty.opendata.arcgis.com/">Jefferson County Open Data Portal</a>. From here, you can download the data in several formats, use the data via an API, or simply view the data on a map. All GIS data made available by Jefferson County are available from this site.</p>
                 <br>
                 <p class="initialText" style="text-align: center"><em>If crash data does not load after about 30 seconds, please refresh your screen.</em><br></p>
             </div>
@@ -41,7 +42,7 @@
         </div>
         <br><br>
         <div class="row">
-            <div id="enter" class="col-xs-12 center-block text-center"><a href="#" class="enter_link">Click <img src="images/jeffco.png" style="height:100px"> to Continue</a></div>
+            <div id="enter" class="col-xs-12 center-block text-center"><a href="#" class="enter_link">Click to Access <img src="images/jeffco.png" style="height:75px"> Jeffco Crash Site</a></div>
         </div>
     </div>
     
@@ -60,12 +61,12 @@
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                <a class="navbar-brand" href="https://jeffco.us"><img src="images/jeffco.png" style="height:25px"></a>
+                                <a class="navbar-brand" href="https://jeffco.us" target="_blank"><img src="images/jeffco.png" style="height:25px" alt="Jefferson County Logo" title="Visit jeffco.us"></a>
                             </div>
                             <ul class="nav navbar-nav navbar-center">
-                                <li id="initial-extent-button" class="hidden"><a>Initial Extent</a></li>
+                                <li id="initial-extent-button" class="hidden" ><a>Initial Extent</a></li>
                                 <li id="refresh-button" class="hidden"><a>Refresh</a></li>
-                                <li id="remove-AOI-button" class="hidden"><a>Remove Area of Interest</a></li>
+                                <li id="remove-AOI-button" class="hidden"><a>Delete Area of Interest</a></li>
                                 <li id="damage-button" class="hidden"><a>View Damage Data</a></li>
                                 <li id="chart-button" class="hidden"><a>View Crash Charts</a></li>
                             </ul>
@@ -82,9 +83,9 @@
                     <div class="row">
                         <div class="col-xs-2"></div>
                         <div class="col-xs-6 center-block text-center">
-                            <img id="jeffco-logo" src="images/JeffersonCounty_Transportation%20and%20Engineering-horizontal.jpg">
+                            <a href="https://www.jeffco.us/788/Transportation-Engineering" target="_blank"><img id="jeffco-logo" src="images/JeffersonCounty_Transportation%20and%20Engineering-horizontal.jpg" alt="Jefferson County Transportation and Engineering" title="Jefferson County Transportation and Engineering"></a>
                             <br>
-                            <img id="cdot-logo" src="images/5644d048d63fd.image.png">
+                            <a href="https://www.codot.gov/" target="_blank"><img id="cdot-logo" src="images/5644d048d63fd.image.png" alt="Colorado Department of Transportation" title="Colorado Department of Transportation"></a>
                         </div>
                         <div class="col-xs-4"></div>
                     </div>

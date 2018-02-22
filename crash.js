@@ -3,7 +3,7 @@ $(".enter_link").on("click", function() {
     $("#intro-block").removeClass("hidden");
 });
 
-var osmBase = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+var osmBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> | Crash Data: Colorado DOT, Jefferson County',
     opacity: .75
 });
